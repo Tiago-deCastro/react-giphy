@@ -12,17 +12,18 @@ class App extends Component {
 
     this.state = {
       gifs: [],
-      selectedGifId: this.props.id
+      selectedGifId: null,
+      clicked: false
     };
   }
 
-  handleClick = (event) => {
-    console.log(event.target.id);
+  handleClick = (selectedGifId) => {
+    console.log(selectedGifId);
     this.setState({
-      selectedGifId: event.target.value
+      selectedGifId: selectedGifId,
+      clicked: true
     });
   }
-
 
   search = (query) => {
     giphy('xEG8Vn6530oxP6IXnH3D2XOmWgbrAS5F').search({
@@ -44,13 +45,14 @@ class App extends Component {
     return (
       <div>
         <div className="left-scene">
-          <SearchBar search={this.search}/>
+          <SearchBar search={this.search} />
           <div className="selected-gif">
             <Gif id={this.state.selectedGifId} />
           </div>
         </div>
         <div className="right-scene">
-          <GifList gifs={this.state.gifs} />
+          <GifList gifs={this.state.gifs}
+          onGifSelect={selectedGif => this.handleClick(selectedGifId)} />
         </div>
       </div>
     );
