@@ -12,17 +12,10 @@ class App extends Component {
 
     this.state = {
       gifs: [],
-      selectedGifId: null,
-      clicked: false
+      selectedGifId: 'xT9IgDEI1iZyb2wqo8',
     };
-  }
-
-  handleClick = (selectedGifId) => {
-    console.log(selectedGifId);
-    this.setState({
-      selectedGifId: selectedGifId,
-      clicked: true
-    });
+    this.search = this.search.bind(this);
+    this.selectGif = this.selectGif.bind(this);
   }
 
   search = (query) => {
@@ -34,6 +27,12 @@ class App extends Component {
       this.setState({
         gifs: result.data
       });
+    });
+  }
+
+  selectGif(id) {
+    this.setState({
+      selectedGifId: id
     });
   }
 
@@ -52,7 +51,7 @@ class App extends Component {
         </div>
         <div className="right-scene">
           <GifList gifs={this.state.gifs}
-          onGifSelect={selectedGif => this.handleClick(selectedGifId)} />
+          selectGif={this.selectGif} />
         </div>
       </div>
     );
